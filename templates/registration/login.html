@@ -1,0 +1,24 @@
+{% extends 'my_base.html' %}
+
+{% block content %}
+
+<div class="login-wrapper">
+  <div class="title">Log In</div>
+  <div class="login-wrapper__create create"> 
+    <span>Нет аккаунта?</span> 
+    <a class="link" href="{% url 'signup' %}">Зарегистрируйтесь</a>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="login__form">
+      <div class="login__textarea"> 
+        LOGIN {{ form.username }}
+      </div>
+      <div class="login__textarea"> 
+       PASSWORD {{ form.password }}
+      </div>
+      <button class="login__button" type="submit">Log In</button>
+    </div>
+  </form>
+  {% endblock %}
+</div>

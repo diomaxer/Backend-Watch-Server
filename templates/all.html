@@ -1,0 +1,18 @@
+<title>All Page</title>
+<H1>All Products</H1>
+<div>
+    {% if product.count > 0 %}
+    <table>
+        <tr><th>ID</th><th>Пользователь</th><th>Часы</th><th>Бренд</th><th>Цена</th></tr>
+        {% for prod in product %}
+        <tr>
+            <td>{{ prod.id }}</td>
+            <td>{{ prod.user }}</td>
+            <td><a href="{% url 'product_detail_view' prod.id %}">{{ prod.name }}</a></td>
+            <td>{{ prod.brand }}</td>
+            <td>{{ prod.price }} Buck$</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
