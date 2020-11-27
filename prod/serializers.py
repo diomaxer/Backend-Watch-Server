@@ -1,5 +1,82 @@
 from rest_framework import serializers
-from .models import Product, Images
+from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
+    Material, Glass, Waterproof, Numbers, ZipType
+
+
+class SexSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Sex
+        fields = "__all__"
+
+
+class WatchTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WatchType
+        fields = "__all__"
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = "__all__"
+
+
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipment
+        fields = "__all__"
+
+
+class MehTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MehType
+        fields = "__all__"
+
+
+class ConditionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Condition
+        fields = "__all__"
+
+
+class ColourSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Colour
+        fields = "__all__"
+
+
+class MaterialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Material
+        fields = "__all__"
+
+
+class GlassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Glass
+        fields = "__all__"
+
+
+class WaterproofSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Waterproof
+        fields = "__all__"
+
+
+class NumbersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Numbers
+        fields = "__all__"
+
+
+class ZipTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ZipType
+        fields = "__all__"
+
 
 class ProductSerializer(serializers.ModelSerializer):
     user_username = serializers.CharField(source='user')
@@ -110,7 +187,7 @@ class ProductSerializer2(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
-        #depth=1
+        # depth=1
 
 
 class ImagesSerializer(serializers.ModelSerializer):

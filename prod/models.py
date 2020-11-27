@@ -1,6 +1,8 @@
 from django.db import models
 from users.models import CustomUser
 from django.utils.text import slugify
+
+
 # Create your models here.
 class Sex(models.Model):
     name = models.CharField("Пол", max_length=30)
@@ -12,6 +14,7 @@ class Sex(models.Model):
         verbose_name = 'Пол'
         verbose_name_plural = 'Пол'
 
+
 class WatchType(models.Model):
     name = models.CharField("Тип часов", max_length=30)
 
@@ -21,6 +24,7 @@ class WatchType(models.Model):
     class Meta:
         verbose_name = 'Тип часов'
         verbose_name_plural = 'Типы часов'
+
 
 class Brand(models.Model):
     name = models.CharField("Бренд часов", max_length=30)
@@ -32,6 +36,7 @@ class Brand(models.Model):
         verbose_name = 'Бренд'
         verbose_name_plural = 'Бренды'
 
+
 class Equipment(models.Model):
     name = models.CharField("Комплектация", max_length=30)
 
@@ -41,6 +46,7 @@ class Equipment(models.Model):
     class Meta:
         verbose_name = 'Комплектация'
         verbose_name_plural = 'Комплектация'
+
 
 class MehType(models.Model):
     name = models.CharField("Тип механизма", max_length=30)
@@ -52,6 +58,7 @@ class MehType(models.Model):
         verbose_name = 'Тип механизма'
         verbose_name_plural = 'Тип механизма'
 
+
 class Condition(models.Model):
     name = models.CharField("Состояние часов", max_length=30)
 
@@ -61,6 +68,7 @@ class Condition(models.Model):
     class Meta:
         verbose_name = 'Состояние часов'
         verbose_name_plural = 'Состояние часов'
+
 
 class Colour(models.Model):
     name = models.CharField("Цвет", max_length=30)
@@ -72,15 +80,6 @@ class Colour(models.Model):
         verbose_name = 'Цвет'
         verbose_name_plural = 'Цвет'
 
-class BracerColour(models.Model):
-    name = models.CharField("Цвет браслета", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Цвет браслета'
-        verbose_name_plural = 'Цвет браслета'
 
 class Material(models.Model):
     name = models.CharField("Материал", max_length=30)
@@ -92,25 +91,6 @@ class Material(models.Model):
         verbose_name = 'Материал'
         verbose_name_plural = 'Материал'
 
-class BezelMaterial(models.Model):
-    name = models.CharField("Материал безеля", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Материал безеля'
-        verbose_name_plural = 'Материал безеля'
-
-class BracerMaterial(models.Model):
-    name = models.CharField("Материал браслета", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Материал браслета'
-        verbose_name_plural = 'Материал браслета'
 
 class Glass(models.Model):
     name = models.CharField("Стекло", max_length=30)
@@ -122,6 +102,7 @@ class Glass(models.Model):
         verbose_name = 'Стекло'
         verbose_name_plural = 'Стекло'
 
+
 class Waterproof(models.Model):
     name = models.CharField("Водонепраницаемость", max_length=30)
 
@@ -131,6 +112,7 @@ class Waterproof(models.Model):
     class Meta:
         verbose_name = 'Водонепраницаемость'
         verbose_name_plural = 'Водонепраницаемость'
+
 
 class Numbers(models.Model):
     name = models.CharField("Цифры", max_length=30)
@@ -142,6 +124,7 @@ class Numbers(models.Model):
         verbose_name = 'Цифры'
         verbose_name_plural = 'Цифры'
 
+
 class ZipType(models.Model):
     name = models.CharField("Тип застёжки", max_length=30)
 
@@ -152,6 +135,31 @@ class ZipType(models.Model):
         verbose_name = 'Тип застёжки'
         verbose_name_plural = 'Тип застёжки'
 
+
+"""
+
+class BezelMaterial(models.Model):
+    name = models.CharField("Материал безеля", max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Материал безеля'
+        verbose_name_plural = 'Материал безеля'
+
+
+class BracerMaterial(models.Model):
+    name = models.CharField("Материал браслета", max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Материал браслета'
+        verbose_name_plural = 'Материал браслета'
+
+
 class ZipMaterial(models.Model):
     name = models.CharField("Материал застёжки", max_length=30)
 
@@ -161,6 +169,8 @@ class ZipMaterial(models.Model):
     class Meta:
         verbose_name = 'Материал застёжки'
         verbose_name_plural = 'Материал застёжки'
+"""
+
 
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -176,36 +186,42 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Пол',
         null=True,
+        blank=True,
     )
     watch_type = models.ForeignKey(
         WatchType,
         on_delete=models.CASCADE,
         verbose_name='Тип часов',
         null=True,
+        blank=True,
     )
     brand = models.ForeignKey(
         Brand,
         on_delete=models.CASCADE,
         verbose_name='Бренд',
         null=True,
+        blank=True,
     )
     condition = models.ForeignKey(
         Condition,
         on_delete=models.CASCADE,
         verbose_name='Состояние часов',
         null=True,
+        blank=True,
     )
     equipment = models.ForeignKey(
         Equipment,
         on_delete=models.CASCADE,
         verbose_name='Комплектация',
         null=True,
+        blank=True,
     )
     meh_type = models.ForeignKey(
         MehType,
         on_delete=models.CASCADE,
         verbose_name='Тип механизма',
         null=True,
+        blank=True,
     )
     # Калибр
     caliber = models.CharField('Калибр/Механизм', max_length=30, null=True, blank=True)
@@ -217,40 +233,46 @@ class Product(models.Model):
     chronometer = models.BooleanField('Хронометр', null=True, blank=True, default=False)
     master_chronometer = models.BooleanField('Мастер хронометр', null=True, blank=True, default=False)
 
-    #photo = models.ImageField("Фото",
-                                #upload_to="img/admin_watch",
-                                #height_field=None,
-                                #width_field=None,
-                                #max_length=120,
-                                #null=True,
-                                #blank=True
-                                #)
+    # photo = models.ImageField("Фото",
+    # upload_to="img/admin_watch",
+    # height_field=None,
+    # width_field=None,
+    # max_length=120,
+    # null=True,
+    # blank=True
+    # )
 
     # Корпус
     corpus_material = models.ForeignKey(
         Material,
         on_delete=models.CASCADE,
         verbose_name='Материал корпуса',
+        related_name='corpus_material',
         null=True,
-    )
+        blank=True,
+    )  # Material
     bezel_material = models.ForeignKey(
-        BezelMaterial,
+        Material,
         on_delete=models.CASCADE,
         verbose_name='Материал безеля',
+        related_name='bezel_material',
         null=True,
-    )
+        blank=True,
+    )  # Material
     thickness = models.CharField('Толщина', max_length=30, null=True, blank=True)
     glass = models.ForeignKey(
         Glass,
         on_delete=models.CASCADE,
         verbose_name='Стекло',
         null=True,
+        blank=True,
     )
     waterproof = models.ForeignKey(
         Waterproof,
         on_delete=models.CASCADE,
         verbose_name='Водонепроницаемость',
         null=True,
+        blank=True,
     )
     back_cap = models.BooleanField('Прозрачная задняя крышка', null=True, blank=True, default=False)
     jewelry = models.BooleanField('Отделка драгоценными камнями', null=True, blank=True, default=False)
@@ -261,13 +283,16 @@ class Product(models.Model):
         Colour,
         on_delete=models.CASCADE,
         verbose_name='Циферблат',
+        related_name='dial_colour',
         null=True,
-    )
+        blank=True,
+    )  # Color
     numbers = models.ForeignKey(
         Numbers,
         on_delete=models.CASCADE,
         verbose_name='Цифры',
         null=True,
+        blank=True,
     )
     dial1 = models.BooleanField('Гильошированный циферблат', null=True, blank=True, default=False)
     dial2 = models.BooleanField('Ручное гильоширование', null=True, blank=True, default=False)
@@ -281,29 +306,36 @@ class Product(models.Model):
     # Браслет
 
     bracer = models.ForeignKey(
-        BracerMaterial,
+        Material,
         on_delete=models.CASCADE,
         verbose_name='Материал браслета',
+        related_name='bracer',
         null=True,
-    )
+        blank=True,
+    )  # Material
     bracer_colour = models.ForeignKey(
-        BracerColour,
+        Colour,
         on_delete=models.CASCADE,
         verbose_name='Цвет браслета',
+        related_name='bracer_colour',
         null=True,
-    )
+        blank=True,
+    )  # Color
     zip_type = models.ForeignKey(
         ZipType,
         on_delete=models.CASCADE,
         verbose_name='Материал застёжки',
         null=True,
+        blank=True,
     )
     zip_material = models.ForeignKey(
-        ZipMaterial,
+        Material,
         on_delete=models.CASCADE,
         verbose_name='Тип застёжки',
+        related_name='zip_material',
         null=True,
-    )
+        blank=True,
+    )  # Material
 
     # Функции
     moon_faze = models.BooleanField('Индикатор фазы луны', null=True, blank=True, default=False)
@@ -339,6 +371,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Часы'
         verbose_name_plural = 'Часы'
+
 
 class Images(models.Model):
     post = models.ForeignKey(Product, on_delete=models.CASCADE, default=None)

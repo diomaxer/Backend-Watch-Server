@@ -3,8 +3,8 @@ from django.core.files.base import ContentFile
 from requests import Response
 from rest_framework import viewsets, request
 from users.models import CustomUser
-from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour, BracerColour, \
-    Material, BezelMaterial, BracerMaterial, Glass, Waterproof, Numbers, ZipType, ZipMaterial
+from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
+    Material, Glass, Waterproof, Numbers, ZipType
 from .forms import ProductForm, ImageForm
 from django.forms.models import modelformset_factory
 from django.contrib import messages
@@ -89,18 +89,17 @@ class ProductSpecsView(viewsets.ModelViewSet):
             condition=Condition.objects.get(id=product_data["condition"]),
             mex_type=MehType.objects.get(id=product_data["mex_type"]),
             corpus_material=Material.objects.get(id=product_data["corpus_material"]),
-            bezel_material=BezelMaterial.objects.get(id=product_data["bezel_material"]),
+            bezel_material=Material.objects.get(id=product_data["bezel_material"]),
             glass=Glass.objects.get(id=product_data["glass"]),
             waterproof=Waterproof.objects.get(id=product_data["waterproof"]),
             dial=Colour.objects.get(id=product_data["dial"]),
             numbers=Numbers.objects.get(id=product_data["numbers"]),
-            bracer=BracerMaterial.objects.get(id=product_data["bracer"]),
-            bracer_colour=BracerColour.objects.get(id=product_data["bracer_colour"]),
+            bracer=Material.objects.get(id=product_data["bracer"]),
+            bracer_colour=Colour.objects.get(id=product_data["bracer_colour"]),
             zip_type=ZipType.objects.get(id=product_data["zip_type"]),
-            zip_material=ZipMaterial.objects.get(id=product_data["zip_material"]),
+            zip_material=Material.objects.get(id=product_data["zip_material"]),
 
         )
         new_product.save()
         serializer = ProductSerializer(new_product, many=True)
         return Response(serializer.data)
-
