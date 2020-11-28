@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from users.views import lk_view
 from prod import views
+from prod.views import ProductCreateView
 
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('lk/', lk_view, name='lk'),
+    path('product/create/', ProductCreateView.as_view()),
 ]
 
 if settings.DEBUG:

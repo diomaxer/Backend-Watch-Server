@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 from requests import Response
-from rest_framework import viewsets, request
+from rest_framework import viewsets, request, generics
 from users.models import CustomUser
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
@@ -20,6 +20,10 @@ def all_view(request, *args, **kwargs):
     product = Product.objects.all()
     context = {'product': product}
     return render(request, 'all.html', context)
+
+
+class ProductCreateView(generics.CreateAPIView):
+    serializer_class = ProductSerializer2
 
 
 class ProductDetailView(DetailView):

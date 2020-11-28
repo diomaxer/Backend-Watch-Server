@@ -6,11 +6,11 @@ from rest_framework import routers
 from .api import ProductViewSet, ImagesViewSet, SexViewSet, WatchTypeViewSet, BrandViewSet, EquipmentViewSet,\
     MehTypeViewSet, ConditionViewSet, ColourViewSet, MaterialViewSet, GlassViewSet, WaterproofViewSet,\
     NumbersViewSet, ZipTypeViewSet
-from .views import ProductSpecsView
+from .views import ProductSpecsView, ProductCreateView
 
 router = routers.DefaultRouter()
 # Product
-router.register('api/product_post', ProductViewSet, 'product_post')
+# router.register('api/product_post', ProductCreateView.as_view(), 'product_post')
 router.register('api/product_get', ProductSpecsView, 'product_get')
 
 # Components
@@ -30,6 +30,7 @@ router.register('api/ziptype', ZipTypeViewSet, 'ziptype')
 # Images
 router.register('api/images', ImagesViewSet, 'images')
 
+app_name = "prod"
 urlpatterns = [
     path('<int:pk>', views.ProductDetailView.as_view(), name='product_detail_view'),
 ]
