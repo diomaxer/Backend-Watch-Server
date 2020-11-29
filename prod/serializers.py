@@ -191,11 +191,7 @@ class ProductSerializer2(serializers.ModelSerializer):
 
 
 class ImagesSerializer(serializers.ModelSerializer):
-    post_name = serializers.CharField(source='post.name')
 
     class Meta:
         model = Images
-        fields = [
-            'post_name',
-            'image',
-        ]
+        fields = '__all__'

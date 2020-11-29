@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
-from .serializers import ProductSerializer, ProductSerializer2
+from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer
 
 
 # Create your views here.
@@ -24,6 +24,10 @@ def all_view(request, *args, **kwargs):
 
 class ProductCreateView(generics.CreateAPIView):
     serializer_class = ProductSerializer2
+
+
+class ImagesCreateView(generics.CreateAPIView):
+    serializer_class = ImagesSerializer
 
 
 class ProductDetailView(DetailView):
