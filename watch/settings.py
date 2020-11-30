@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 
     # My apps
     'prod',
@@ -104,6 +106,17 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.SessionAuthentication',
+       'rest_framework.authentication.TokenAuthentication',
+       'rest_framework.authentication.BasicAuthentication',
+   ),
+   #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAdminUser',
+   #),
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

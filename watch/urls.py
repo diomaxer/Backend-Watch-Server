@@ -24,8 +24,14 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('lk/', lk_view, name='lk'),
+
+    # DRF
     path('product/create/', ProductCreateView.as_view()),
     path('product/images/create/', ImagesCreateView.as_view()),
+
+    # DJOSER
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth_token/', include('djoser.urls.authtoken')),
 ]
 
 if settings.DEBUG:

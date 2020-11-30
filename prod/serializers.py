@@ -183,7 +183,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer2(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    #user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Product

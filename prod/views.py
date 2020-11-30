@@ -1,14 +1,17 @@
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 from requests import Response
-from rest_framework import viewsets, request, generics
+from rest_framework import viewsets, generics
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from users.models import CustomUser
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
 from .forms import ProductForm, ImageForm
 from django.forms.models import modelformset_factory
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
@@ -28,6 +31,7 @@ class ProductCreateView(generics.CreateAPIView):
 
 class ImagesCreateView(generics.CreateAPIView):
     serializer_class = ImagesSerializer
+    permission_classes = (IsAuthenticated, )
 
 
 class ProductDetailView(DetailView):
