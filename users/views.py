@@ -1,10 +1,11 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views import generic
-from django.views.generic import DetailView
-
-from .forms import CustomUserCreationForm, UserForm
+from rest_framework import viewsets, generics
+from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser
+from .forms import CustomUserCreationForm, UserForm
+from .serializers import CustomUserSerializer
 
 
 class SignUp(generic.CreateView):
@@ -23,14 +24,3 @@ def signup_view(request):
     }
     return render(request, 'registration/signup.html', context)
 
-
-def lk_view(request, *args, **kwargs):
-    account = CustomUser.objects.all()
-    context = {'account': account}
-    return render(request, 'lk.html', context)
-
-
-class LkDetailView(DetailView):
-    model = CustomUser
-    template_name = 'lk/detail_lk_view.html'
-    context_object_name = 'user_lk'

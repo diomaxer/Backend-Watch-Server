@@ -1,24 +1,21 @@
-from django.contrib.auth.models import AnonymousUser
-from django.shortcuts import render, redirect
-from django.core.files.base import ContentFile
+from django.shortcuts import render
 from requests import Response
 from rest_framework import viewsets, generics
-from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticated
 from users.models import CustomUser
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
-from .forms import ProductForm, ImageForm
-from django.forms.models import modelformset_factory
-from django.contrib import messages
-from django.http import HttpResponseRedirect, request
-from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
 from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer
+from rest_framework import views
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
+from .serializers import PropertiesSerializers
+from rest_framework.permissions import IsAuthenticated
 
 
-# Create your views here.
+def home_view(request, *args, **kwargs):
+    return render(request, 'home.html', {})
+
+
 def all_view(request, *args, **kwargs):
     product = Product.objects.all()
     context = {'product': product}
@@ -27,6 +24,7 @@ def all_view(request, *args, **kwargs):
 
 class ProductCreateView(generics.CreateAPIView):
     serializer_class = ProductSerializer2
+    permission_classes = (IsAuthenticated, )
 
 
 class ImagesCreateView(generics.CreateAPIView):
@@ -34,54 +32,7 @@ class ImagesCreateView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated, )
 
 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'watch/detail_view.html'
-    context_object_name = 'prod'
-
-
-def home_view(request, *args, **kwargs):
-    return render(request, 'home.html', {})
-
-
-@login_required
-def post(request):
-    try:
-        ImageFormSet = modelformset_factory(Images,
-                                            form=ImageForm, extra=2)
-
-        if request.method == 'POST':
-
-            postForm = ProductForm(request.POST)
-            formset = ImageFormSet(request.POST, request.FILES,
-                                   queryset=Images.objects.none())
-
-            if postForm.is_valid() and formset.is_valid():
-                post_form = postForm.save(commit=False)
-                post_form.user = request.user
-                post_form.save()
-
-                for form in formset.cleaned_data:
-                    image = form['image']
-                    photo = Images(post=post_form, image=image)
-                    photo.save()
-                messages.success(request,
-                                 "Yeeew, check it out on the home page!")
-                return HttpResponseRedirect("/")
-            else:
-                print(postForm.errors, formset.errors)
-        else:
-            postForm = ProductForm()
-            formset = ImageFormSet(queryset=Images.objects.none())
-            context = {'postForm': postForm, 'formset': formset}
-        return render(request, 'create_product.html', context)
-    except KeyError:
-        return HttpResponseRedirect("/")
-        # return render(request, 'sucsess.html', {})
-
-
-
-class ProductSpecsView(viewsets.ModelViewSet):
+class ProductSpecsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
@@ -115,3 +66,23 @@ class ProductSpecsView(viewsets.ModelViewSet):
         new_product.save()
         serializer = ProductSerializer(new_product, many=True)
         return Response(serializer.data)
+
+
+class PropertiesView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        properties = {
+            'sex': Sex.objects.all(),
+            'watch_type': WatchType.objects.all(),
+            'brand': Brand.objects.all(),
+            'equipment': Equipment.objects.all(),
+            'meh_type': MehType.objects.all(),
+            'condition': Condition.objects.all(),
+            'colour': Colour.objects.all(),
+            'material': Material.objects.all(),
+            'glass': Glass.objects.all(),
+            'waterproof': Waterproof.objects.all(),
+            'numbers': Numbers.objects.all(),
+            'zip_type': ZipType.objects.all()
+        }
+        serializer = PropertiesSerializers(properties)
+        return Response (serializer.data, status=HTTP_200_OK)

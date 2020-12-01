@@ -6,11 +6,7 @@
 {% if user.is_authenticated %}
   Welcome, {{ user.username }}!
   <div class="link">
-    <p><a href="{% url 'lk' %}">Все пользователи</a></p>
     <p><a href="{% url 'logout' %}">Выйти</a></p>
-    <p><a href="{% url 'create' %}">Создать объявление</a></p>
-    <p><a href="{% url 'all' %}">Все предложения</a></p>
-    <p><a href="{% url 'lk_detail_view' user.id %}">Войти в личный кабинет</a></p>
   </div>
 {% else %}
   <div class="link">

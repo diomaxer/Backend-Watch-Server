@@ -196,3 +196,18 @@ class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = '__all__'
+
+
+class PropertiesSerializers(serializers.Serializer):
+    sex = SexSerializer(read_only=True, many=True)
+    watch_type = WatchTypeSerializer(read_only=True, many=True)
+    brand = BrandSerializer(read_only=True, many=True)
+    equipment = EquipmentSerializer(read_only=True, many=True)
+    meh_type = MehTypeSerializer(read_only=True, many=True)
+    condition = ConditionSerializer(read_only=True, many=True)
+    colour = ColourSerializer(read_only=True, many=True)
+    material = MaterialSerializer(read_only=True, many=True)
+    glass = GlassSerializer(read_only=True, many=True)
+    waterproof = WaterproofSerializer(read_only=True, many=True)
+    numbers = NumbersSerializer(read_only=True, many=True)
+    zip_type = ZipTypeSerializer(read_only=True, many=True)

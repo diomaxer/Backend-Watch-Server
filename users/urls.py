@@ -1,12 +1,13 @@
 from django.urls import path
+from rest_framework import routers
+
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .api import CustomUserViewSet
 
 urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
-    path('<int:pk>', views.LkDetailView.as_view(), name='lk_detail_view'),
 ]
 
 if settings.DEBUG:

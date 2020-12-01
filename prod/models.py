@@ -374,12 +374,7 @@ class Product(models.Model):
 
 
 class Images(models.Model):
-    post = models.ForeignKey(Product, on_delete=models.CASCADE, default=None)
-    image = models.ImageField(
-        upload_to='media',
-        verbose_name='Image',
-        null=True,
-    )
+    image = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Картинка'
