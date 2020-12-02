@@ -101,6 +101,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'id',
             'user_username',
             'name',
             'id_number',
@@ -195,7 +196,10 @@ class ImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Images
-        fields = '__all__'
+        fields = [
+            'ad',
+            'image',
+        ]
 
 
 class PropertiesSerializers(serializers.Serializer):

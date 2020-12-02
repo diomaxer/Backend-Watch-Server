@@ -374,7 +374,8 @@ class Product(models.Model):
 
 
 class Images(models.Model):
-    image = models.CharField(max_length=255, blank=True, null=True)
+    ad = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media/watch/%Y/%m/%d', max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Картинка'
