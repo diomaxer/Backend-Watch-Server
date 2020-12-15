@@ -32,6 +32,12 @@ class ImagesCreateView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated, )
 
 
+class UserImagesView(generics.ListAPIView):
+    queryset = Images.objects.all()
+    serializer_class = ImagesSerializer
+    permission_classes = (IsAuthenticated, )
+
+
 class ProductSpecsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 

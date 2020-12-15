@@ -197,6 +197,7 @@ class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = [
+            'id',
             'ad',
             'image',
         ]

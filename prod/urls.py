@@ -10,5 +10,4 @@ router.register('api/product_get', ProductSpecsViewSet, 'product_get')
 # Images
 router.register('api/images', ImagesViewSet, 'images')
 
-
 urlpatterns = router.urls

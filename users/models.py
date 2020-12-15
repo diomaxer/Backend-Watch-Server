@@ -4,7 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class CustomUser(AbstractUser):
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    phone = PhoneNumberField(null=False, blank=True, unique=True)
     city = models.CharField(max_length=30, blank=True)
     company = models.BooleanField(default=False)
     avatar = models.ImageField('Аватар', upload_to='media/', null=True, blank=True)
