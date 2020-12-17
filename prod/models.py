@@ -185,6 +185,7 @@ class Product(models.Model):
         Sex,
         on_delete=models.CASCADE,
         verbose_name='Пол',
+        default='1',
         null=True,
         blank=True,
     )
@@ -192,6 +193,7 @@ class Product(models.Model):
         WatchType,
         on_delete=models.CASCADE,
         verbose_name='Тип часов',
+        default='1',
         null=True,
         blank=True,
     )
@@ -199,6 +201,7 @@ class Product(models.Model):
         Brand,
         on_delete=models.CASCADE,
         verbose_name='Бренд',
+        default='1',
         null=True,
         blank=True,
     )
@@ -206,6 +209,7 @@ class Product(models.Model):
         Condition,
         on_delete=models.CASCADE,
         verbose_name='Состояние часов',
+        default='1',
         null=True,
         blank=True,
     )
@@ -213,6 +217,7 @@ class Product(models.Model):
         Equipment,
         on_delete=models.CASCADE,
         verbose_name='Комплектация',
+        default='1',
         null=True,
         blank=True,
     )
@@ -220,6 +225,7 @@ class Product(models.Model):
         MehType,
         on_delete=models.CASCADE,
         verbose_name='Тип механизма',
+        default='1',
         null=True,
         blank=True,
     )
@@ -248,6 +254,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Материал корпуса',
         related_name='corpus_material',
+        default='1',
         null=True,
         blank=True,
     )  # Material
@@ -256,6 +263,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Материал безеля',
         related_name='bezel_material',
+        default='1',
         null=True,
         blank=True,
     )  # Material
@@ -264,6 +272,7 @@ class Product(models.Model):
         Glass,
         on_delete=models.CASCADE,
         verbose_name='Стекло',
+        default='1',
         null=True,
         blank=True,
     )
@@ -271,6 +280,7 @@ class Product(models.Model):
         Waterproof,
         on_delete=models.CASCADE,
         verbose_name='Водонепроницаемость',
+        default='1',
         null=True,
         blank=True,
     )
@@ -284,6 +294,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Циферблат',
         related_name='dial_colour',
+        default='1',
         null=True,
         blank=True,
     )  # Color
@@ -291,6 +302,7 @@ class Product(models.Model):
         Numbers,
         on_delete=models.CASCADE,
         verbose_name='Цифры',
+        default='1',
         null=True,
         blank=True,
     )
@@ -310,6 +322,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Материал браслета',
         related_name='bracer',
+        default='1',
         null=True,
         blank=True,
     )  # Material
@@ -318,6 +331,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Цвет браслета',
         related_name='bracer_colour',
+        default='1',
         null=True,
         blank=True,
     )  # Color
@@ -325,6 +339,7 @@ class Product(models.Model):
         ZipType,
         on_delete=models.CASCADE,
         verbose_name='Материал застёжки',
+        default='1',
         null=True,
         blank=True,
     )
@@ -333,6 +348,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Тип застёжки',
         related_name='zip_material',
+        default='1',
         null=True,
         blank=True,
     )  # Material
