@@ -1,9 +1,17 @@
 from django.contrib import admin
-from .models import Images ,Sex, Product, WatchType, Brand, Equipment, MehType, Condition, Colour,\
+from .models import Images, Sex, Product, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
 # Register your models here.
 
-admin.site.register(Product)
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id', 'price',)
+
+
+admin.site.register(Product, ProductAdmin)
+
+
+# admin.site.register(Product)
 admin.site.register(Sex)
 admin.site.register(WatchType)
 admin.site.register(Brand)
