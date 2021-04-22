@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from prod.views import ProductCreateView, ImagesCreateView, PropertiesView, UserImagesView
 from rest_framework import routers
 from users.api import CustomUserViewSet
-from users.views import RegistrUserView
+from users.views import RegistrationView, VerifyEmail
 
 router = routers.DefaultRouter()
 
@@ -22,19 +22,22 @@ urlpatterns = [
     path('watch/', include('prod.urls')),
 
     # USER
-    path('users/', include('users.urls')),
-    path('users/', include('django.contrib.auth.urls')),
+    # path('users/', include('users.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
 
     # DRF
     path('product/create/', ProductCreateView.as_view()),
     path('product/images/create/', ImagesCreateView.as_view()),
     path('product/images/users/', UserImagesView.as_view()),
     path('product/properties/', PropertiesView.as_view(), name="properties"),
-    path('registr/', RegistrUserView.as_view(), name='registr'),
+    path('registr/', RegistrationView.as_view(), name='registr'),
 
     # DJOSER
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth_token/', include('djoser.urls.authtoken')),
+
+    # Authentication
+    path('authentication/', include('users.urls')),
 ]
 
 if settings.DEBUG:

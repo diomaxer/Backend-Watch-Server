@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     city = models.CharField(max_length=30, blank=True)
     company = models.BooleanField(default=False)
     avatar = models.ImageField('Аватар', upload_to='media/', null=True, blank=True)
-
+    
     REQUIRED_FIELDS = ['email', 'city', 'company', 'avatar', ]
 
     def __str__(self):

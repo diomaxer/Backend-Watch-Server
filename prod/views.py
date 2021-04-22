@@ -1,3 +1,4 @@
+import authentication as authentication
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from requests import Response
@@ -11,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from .serializers import PropertiesSerializers
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 
 def home_view(request, *args, **kwargs):
@@ -25,22 +27,24 @@ def all_view(request, *args, **kwargs):
 
 class ProductCreateView(generics.CreateAPIView):
     serializer_class = ProductSerializer2
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
 
 
 class ImagesCreateView(generics.CreateAPIView):
     serializer_class = ImagesSerializer
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
 
 
 class UserImagesView(generics.ListAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
 
 
 class ProductSpecsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
+    #authentication_classes = [TokenAuthentication, ]
+    permission_classes = (IsAuthenticated, )
     filter_backends = [DjangoFilterBackend, ]
     filter_fields = ['user']
 
