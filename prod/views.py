@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from requests import Response
 from rest_framework import viewsets, generics
 from users.models import CustomUser
+from users.serializers import CustomUserSerializer
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
 from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer
@@ -43,10 +44,10 @@ class UserImagesView(generics.ListAPIView):
 
 class ProductSpecsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
-    #authentication_classes = [TokenAuthentication, ]
-    permission_classes = (IsAuthenticated, )
-    filter_backends = [DjangoFilterBackend, ]
-    filter_fields = ['user']
+    # authentication_classes = [TokenAuthentication, ]
+    # permission_classes = (IsAuthenticated, )
+    # filter_backends = [DjangoFilterBackend, ]
+    # filter_fields = ['user']
 
     def get_queryset(self):
         product = Product.objects.all()

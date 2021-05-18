@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.shortcuts import redirect
 
 
 class RegistrationView(generics.GenericAPIView):
@@ -56,11 +57,14 @@ class VerifyEmail(views.APIView):
             if not user.is_active:
                 user.is_active = True
                 user.save()
-            return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+            return redirect('https://watches360.ru/EmailVerification/confirmed')
+            # return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
         except jwt.ExpiredSignatureError as identifier:
-            return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+            return redirect('https://watches360.ru/EmailVerification/expired', {'answer': 'invalid token'})
+            # return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
-            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            return redirect('https://watches360.ru/EmailVerification/expired', {'answer': 'invalid token'})
+            # return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RequestPasswordResetEmail(generics.GenericAPIView):
@@ -79,7 +83,8 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
                 request=request).domain
             relativeLink = reverse('password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
 
-            absurl = 'http://'+current_site + relativeLink
+            # absurl = 'http://'+current_site + relativeLink
+            absurl = 'https://' + current_site + '/NewPassword/' + str(uidb64) + '/' + str(token) + '/'
 
             email_body = 'Hello, \n Use link below to reset your password  \n' + absurl
             data = {'email_body': email_body, 'to_email': user.email,

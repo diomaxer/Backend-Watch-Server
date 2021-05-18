@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
+from users.models import CustomUser
 
 
 class SexSerializer(serializers.ModelSerializer):
@@ -78,8 +79,22 @@ class ZipTypeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UsersSmallInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username',
+            'email',
+            'phone',
+            'city',
+            'company',
+        ]
+
+
 class ProductSerializer(serializers.ModelSerializer):
-    user_username = serializers.CharField(source='user')
+    # user_username = serializers.CharField(source='user')
+    user = UsersSmallInfoSerializer()
     sex_name = serializers.CharField(source='sex')
     watch_type_name = serializers.CharField(source='watch_type')
     brand_name = serializers.CharField(source='brand')
@@ -102,7 +117,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             'id',
-            'user_username',
+            'user',
             'name',
             'id_number',
             'description',
