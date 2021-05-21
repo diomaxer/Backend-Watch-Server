@@ -4,18 +4,13 @@ from rest_framework.response import Response
 from .models import Images
 from rest_framework import viewsets
 from .serializers import ImagesSerializer
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
-from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ImagesViewSet(viewsets.ModelViewSet):
+    "Картинки в объявлении для prod.urls"
     queryset = Images.objects.all()
-    # permissions_classes = (IsAuthenticated,)
-    # lookup_field = 'ad'
-    # authentication_classes = (TokenAuthentication, )
     serializer_class = ImagesSerializer
     parser_classes = (JSONParser, FormParser, MultiPartParser)
     filter_backends = [DjangoFilterBackend, ]

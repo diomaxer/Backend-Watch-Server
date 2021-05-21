@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics, views
+from rest_framework import generics, views
 from .models import CustomUser
 from .serializers import RegistrationSerializer, EmailVerificationSerializer, RequestPasswordResetEmailSerializer, SetNewPasswordSerializer
 from rest_framework import status
@@ -12,12 +12,14 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.encoding import smart_str, smart_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import redirect
 
 
 class RegistrationView(generics.GenericAPIView):
+    "Регистрация пользователей"
+
     serializer_class = RegistrationSerializer
 
     def post(self, request):
@@ -43,6 +45,8 @@ class RegistrationView(generics.GenericAPIView):
 
 
 class VerifyEmail(views.APIView):
+    "Подтверждение по EMAIL"
+
     serializer_class = EmailVerificationSerializer
 
     token_param_config = openapi.Parameter(
@@ -68,6 +72,8 @@ class VerifyEmail(views.APIView):
 
 
 class RequestPasswordResetEmail(generics.GenericAPIView):
+    "Подтверждение для смены пароля"
+
     serializer_class = RequestPasswordResetEmailSerializer
 
     def post(self, request):
@@ -94,6 +100,8 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
 
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
+    "Токен для подтверждения пароля"
+
     def get(self, request, uidb64, token):
         id = smart_str(urlsafe_base64_decode(uidb64))
         user = CustomUser.objects.get(id=id)
@@ -103,45 +111,11 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):
+    "Создания нового пароля"
+
     serializer_class = SetNewPasswordSerializer
 
     def patch(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({'success': True, 'message': 'Password reset success'}, status=status.HTTP_200_OK)
-
-
-'''
-class RegistrUserView(CreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserRegistrSerializer
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        serializer = UserRegistrSerializer(data=request.data)
-        data = {}
-        if serializer.is_valid():
-            serializer.save()
-            data['response'] = True
-            return Response(data, status=status.HTTP_200_OK)
-        else:
-            data = serializer.errors
-            return Response(data)
-            
-class SignUp(generic.CreateView):
-   form_class = CustomUserCreationForm
-   success_url = reverse_lazy('login')
-   template_name = 'registration/signup.html'
-
-
-def signup_view(request):
-    form = UserForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-
-    context = {
-        'form': form
-    }
-    return render(request, 'registration/signup.html', context)
-
-'''

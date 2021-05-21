@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from .models import CustomUser
-from django.contrib import auth
 from rest_framework.exceptions import AuthenticationFailed
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
+    "Сериализатор модели пользователя"
 
     class Meta:
         model = CustomUser
@@ -23,8 +23,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    "Сериализатор для регистрации"
+
     password = serializers.CharField(max_length=68, min_length=6)
-    #password2 = serializers.CharField(max_length=68, min_length=6)
 
     class Meta:
         model = CustomUser
@@ -35,6 +36,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class EmailVerificationSerializer(serializers.ModelSerializer):
+    "Сериализатор подтверждения по EMAIL"
+
     token = serializers.CharField(max_length=255)
 
     class Meta:
@@ -43,6 +46,8 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
 
 
 class RequestPasswordResetEmailSerializer(serializers.Serializer):
+    "Сериализатор для запроса на смену пароля"
+
     email = serializers.EmailField(min_length=2)
 
     class Meta:
@@ -51,6 +56,8 @@ class RequestPasswordResetEmailSerializer(serializers.Serializer):
 
 
 class SetNewPasswordSerializer(serializers.Serializer):
+    "Сериализатор для смены пароля"
+
     password = serializers.CharField(min_length=6, max_length=68, write_only=True)
     token = serializers.CharField(min_length=1, write_only=True)
     uidb64 = serializers.CharField(min_length=1, write_only=True)
@@ -75,22 +82,4 @@ class SetNewPasswordSerializer(serializers.Serializer):
             return user
         except Exception as e:
             raise AuthenticationFailed('The reset link is invalid', 401)
-        #return super().validate(attrs)
 
-    '''def save(self, *args, **kwargs):
-        user = CustomUser(
-            username=self.validated_data['username'],
-            email=self.validated_data['email'],
-            city=self.validated_data['city'],
-            company=self.validated_data['company'],
-            avatar=self.validated_data['avatar'],
-            phone=self.validated_data['phone'],
-        )
-        password = self.validated_data['password']
-        password2 = self.validated_data['password2']
-        if password != password2:
-            raise serializers.ValidationError({password: "Пароль не совпадает"})
-        user.set_password(password)
-        user.save()
-        return user
-'''

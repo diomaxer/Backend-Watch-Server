@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
+    "Все пользователи для watch.urls"
     queryset = CustomUser.objects.all()
     permissions_classes = [
         permissions.AllowAny

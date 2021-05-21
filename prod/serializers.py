@@ -80,6 +80,7 @@ class ZipTypeSerializer(serializers.ModelSerializer):
 
 
 class UsersSmallInfoSerializer(serializers.ModelSerializer):
+    "Сериализатор информации о пользователя для объявления"
 
     class Meta:
         model = CustomUser
@@ -93,7 +94,8 @@ class UsersSmallInfoSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # user_username = serializers.CharField(source='user')
+    "Сериалайзер объявления для методов GET PATCH DELETE"
+
     user = UsersSmallInfoSerializer()
     sex_name = serializers.CharField(source='sex')
     watch_type_name = serializers.CharField(source='watch_type')
@@ -199,15 +201,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer2(serializers.ModelSerializer):
-    #user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    "Сериализатор для создания объявления"
 
     class Meta:
         model = Product
         fields = "__all__"
-        # depth=1
 
 
 class ImagesSerializer(serializers.ModelSerializer):
+    "Сериализатор для картинок в объявлениях"
 
     class Meta:
         model = Images
@@ -219,6 +221,8 @@ class ImagesSerializer(serializers.ModelSerializer):
 
 
 class PropertiesSerializers(serializers.Serializer):
+    "Сериализатор для моделей с ForeignKey"
+
     sex = SexSerializer(read_only=True, many=True)
     watch_type = WatchTypeSerializer(read_only=True, many=True)
     brand = BrandSerializer(read_only=True, many=True)
