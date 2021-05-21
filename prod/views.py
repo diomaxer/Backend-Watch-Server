@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.status import HTTP_200_OK
 from .serializers import PropertiesSerializers
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 def home_view(request, *args, **kwargs):
@@ -34,17 +36,21 @@ class ImagesCreateView(generics.CreateAPIView):
 
 
 class UserImagesView(generics.ListAPIView):
-    "методы Get Patch Delete для фотографий в объявлениях"
+    "Методы Get Patch Delete для фотографий в объявлениях"
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
     permission_classes = (IsAuthenticated, )
 
 
 class ProductSpecsViewSet(viewsets.ModelViewSet):
-    "методы GET PATCH DELETE для объявлений"
+    "Методы GET PATCH DELETE для объявлений"
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['name', 'price', 'sex']
+    search_fields = ['name', 'brand__name', ]
+    ordering_films = ['price', 'name']
 
 
 class PropertiesView(views.APIView):

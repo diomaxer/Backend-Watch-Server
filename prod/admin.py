@@ -4,7 +4,7 @@ from .models import Images, Sex, Product, WatchType, Brand, Equipment, MehType, 
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'price',)
+    list_display = ('name', 'id', 'price', 'user', )
 
 
 # Product
