@@ -15,8 +15,6 @@ class ImagesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, ]
     filter_fields = ['ad']
 
-
-
     @action(detail=True, methods=['POST'])
     def uploadImage(self, request, pk=None):
         ad = self.get_object()
@@ -28,21 +26,21 @@ class ImagesViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=400)
 
-    # def partial_update(self, request, pk, *args, **kwargs):
-    #     image = Images.objects.get(id=pk)
-    #     if request.user.id == image.user.id:
-    #         serializer = ImagesSerializer(image, data=request.data)
-    #         if serializer.is_valid():
-    #             serializer.save()
-    #             return Response(serializer.data)
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     else:
-    #         return Response("You don't have enough rights")
-    #
-    # def destroy(self, request, pk, *args, **kwargs):
-    #     image = Images.objects.get(id=pk)
-    #     if request.user.id == image.user.id:
-    #         image.delete()
-    #         return Response("Successfully deleted")
-    #     else:
-    #         return Response("You don't have enough rights")
+    def partial_update(self, request, pk, *args, **kwargs):
+        image = Images.objects.get(id=pk)
+        if request.user.id == image.ad.user.id:
+            serializer = ImagesSerializer(image, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("You don't have enough rights")
+
+    def destroy(self, request, pk, *args, **kwargs):
+        image = Images.objects.get(id=pk)
+        if request.user.id == image.ad.user.id:
+            image.delete()
+            return Response("Successfully deleted")
+        else:
+            return Response("You don't have enough rights")

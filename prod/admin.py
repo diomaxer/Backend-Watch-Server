@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Images, Sex, Product, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
+from users.models import CustomUser
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -22,5 +23,10 @@ admin.site.register(Waterproof)
 admin.site.register(Numbers)
 admin.site.register(ZipType)
 
+
 # Images
-admin.site.register(Images)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('ad', 'id', 'image')
+
+
+admin.site.register(Images, ImageAdmin)

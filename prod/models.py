@@ -136,42 +136,6 @@ class ZipType(models.Model):
         verbose_name_plural = 'Тип застёжки'
 
 
-"""
-
-class BezelMaterial(models.Model):
-    name = models.CharField("Материал безеля", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Материал безеля'
-        verbose_name_plural = 'Материал безеля'
-
-
-class BracerMaterial(models.Model):
-    name = models.CharField("Материал браслета", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Материал браслета'
-        verbose_name_plural = 'Материал браслета'
-
-
-class ZipMaterial(models.Model):
-    name = models.CharField("Материал застёжки", max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Материал застёжки'
-        verbose_name_plural = 'Материал застёжки'
-"""
-
-
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField('Название часов', max_length=150)
@@ -238,15 +202,6 @@ class Product(models.Model):
     jenev_mark = models.BooleanField('Женевское клеймо', null=True, blank=True, default=False)
     chronometer = models.BooleanField('Хронометр', null=True, blank=True, default=False)
     master_chronometer = models.BooleanField('Мастер хронометр', null=True, blank=True, default=False)
-
-    # photo = models.ImageField("Фото",
-    # upload_to="img/admin_watch",
-    # height_field=None,
-    # width_field=None,
-    # max_length=120,
-    # null=True,
-    # blank=True
-    # )
 
     # Корпус
     corpus_material = models.ForeignKey(

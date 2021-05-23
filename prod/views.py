@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from requests import Response
 from rest_framework import viewsets, generics, status
-from users.models import CustomUser
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
 from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer
