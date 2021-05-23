@@ -1,0 +1,17 @@
+{% extends 'my_base.html' %}
+
+{% block content %}
+<div class="login-wrapper">
+  <div class="title">Sign Up</div>
+  <div class="login-wrapper__create">
+    <a class="link"  href="{% url 'login' %}">Back to login</a>
+    <a class="link"  href="{% url 'home' %}">Home</a>
+  </div>
+  <form method="post" action="" class="login__form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="login__button" type="submit" value="Save" >Sign Up</button>
+  </form>
+</div>
+
+{% endblock %}

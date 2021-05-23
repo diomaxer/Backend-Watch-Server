@@ -1,0 +1,19 @@
+{% extends 'my_base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Welcome, {{ user.username }}!
+  <div class="link">
+    <p><a href="{% url 'logout' %}">Выйти</a></p>
+  </div>
+{% else %}
+  <div class="link">
+  <p>Вы не авторизированы</p>
+  <a href="{% url 'login' %}">Войти</a> |
+  <a href="{% url 'registr' %}">Зарегистрироваться</a><br><br>
+Чтобы создавать обявления ввам необходимо <a href="{% url 'login' %}">войти в систему</a>
+  </div>
+{% endif %}
+{% endblock %}
