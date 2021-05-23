@@ -215,6 +215,18 @@ class ImagesSerializer(serializers.ModelSerializer):
         ]
 
 
+class AlInfoSerializer(serializers.ModelSerializer):
+    brand_name = serializers.CharField(source='brand')
+
+    class Meta:
+        model = Product
+        fields = [
+            'name',
+            'brand_name',
+            'price',
+        ]
+
+
 class PropertiesSerializers(serializers.Serializer):
     sex = SexSerializer(read_only=True, many=True)
     watch_type = WatchTypeSerializer(read_only=True, many=True)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from prod.views import home_view
+from prod.views import home_view, MyProductViewList
 from django.conf import settings
 from django.conf.urls.static import static
 from prod.views import ProductCreateView, ImagesCreateView, PropertiesView, UserImagesView
@@ -29,6 +29,7 @@ urlpatterns = [
     path('be/app/product/create/', ProductCreateView.as_view()),
     path('be/app/product/images/create/', ImagesCreateView.as_view()),
     path('be/app/product/images/users/', UserImagesView.as_view()),
+    path('be/app/product/my_list', MyProductViewList.as_view()),
     path('be/app/product/properties/', PropertiesView.as_view(), name="properties"),
     path('be/app/registr/', RegistrationView.as_view(), name='registr'),
 

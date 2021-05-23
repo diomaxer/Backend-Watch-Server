@@ -1,5 +1,6 @@
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Images
 from rest_framework import viewsets, status
@@ -12,6 +13,7 @@ class ImagesViewSet(viewsets.ModelViewSet):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
     parser_classes = (JSONParser, FormParser, MultiPartParser)
+    permission_classes = [IsAuthenticatedOrReadOnly, ]
     filter_backends = [DjangoFilterBackend, ]
     filter_fields = ['ad']
 
@@ -44,3 +46,4 @@ class ImagesViewSet(viewsets.ModelViewSet):
             return Response("Successfully deleted")
         else:
             return Response("You don't have enough rights")
+

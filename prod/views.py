@@ -3,7 +3,7 @@ from requests import Response
 from rest_framework import viewsets, generics, status
 from .models import Images, Product, Sex, WatchType, Brand, Equipment, MehType, Condition, Colour,\
     Material, Glass, Waterproof, Numbers, ZipType
-from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer
+from .serializers import ProductSerializer, ProductSerializer2, ImagesSerializer, AlInfoSerializer
 from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
@@ -64,6 +64,13 @@ class ProductSpecsViewSet(viewsets.ModelViewSet):
         else:
             return Response("You don't have enough rights")
 
+
+class MyProductViewList(generics.ListAPIView):
+    serializer_class = AlInfoSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        return Product.objects.filter(user__id=self.request.user.id)
 
 
 class PropertiesView(views.APIView):
