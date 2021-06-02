@@ -11,6 +11,7 @@ from rest_framework.status import HTTP_200_OK
 from .serializers import PropertiesSerializers
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from users.models import CustomUser
 
 
 def home_view(request, *args, **kwargs):
@@ -27,6 +28,38 @@ class ProductCreateView(generics.CreateAPIView):
     "Создание объявления"
     serializer_class = ProductSerializer2
     permission_classes = (IsAuthenticated, )
+
+    def get_queryset(self):
+        product = Product.objects.all()
+        return product
+
+    def create(self, request, *args, **kwargs):
+        product_data = request.data
+        new_product = Product.objects.create(
+            user=CustomUser.objects.get(id=request.user["user"]),
+            name=product_data["name"],
+            price=product_data["price"],
+            sex=Sex.objects.get(id=product_data["sex"]),
+            watch_type=WatchType.objects.get(id=product_data["watch_type"]),
+            brand=Brand.objects.get(id=product_data["brand"]),
+            equipment=Equipment.objects.get(id=product_data["equipment"]),
+            condition=Condition.objects.get(id=product_data["condition"]),
+            mex_type=MehType.objects.get(id=product_data["mex_type"]),
+            corpus_material=Material.objects.get(id=product_data["corpus_material"]),
+            bezel_material=Material.objects.get(id=product_data["bezel_material"]),
+            glass=Glass.objects.get(id=product_data["glass"]),
+            waterproof=Waterproof.objects.get(id=product_data["waterproof"]),
+            dial=Colour.objects.get(id=product_data["dial"]),
+            numbers=Numbers.objects.get(id=product_data["numbers"]),
+            bracer=Material.objects.get(id=product_data["bracer"]),
+            bracer_colour=Colour.objects.get(id=product_data["bracer_colour"]),
+            zip_type=ZipType.objects.get(id=product_data["zip_type"]),
+            zip_material=Material.objects.get(id=product_data["zip_material"]),
+
+        )
+        new_product.save()
+        serializer = ProductSerializer(new_product, many=True)
+        return Response(serializer.data)
 
 
 class ImagesCreateView(generics.CreateAPIView):
